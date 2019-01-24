@@ -317,7 +317,9 @@ create_devices_for_subsystem (ply_device_manager_t *manager,
                                 node = udev_device_get_devnode (device);
                                 if (node != NULL) {
                                         ply_trace ("found node %s", node);
-                                        found_device = create_devices_for_udev_device (manager, device);
+                                        if (!(strcmp (node, "/dev/fb0")))
+                                                found_device = create_devices_for_udev_device (manager, device);
+                                        else ply_trace ("framebuffer other than fb0 found - ignoring");
                                 }
                         } else {
                                 ply_trace ("device doesn't have a devices tag");
